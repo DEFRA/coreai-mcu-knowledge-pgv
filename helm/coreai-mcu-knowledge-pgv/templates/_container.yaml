@@ -1,0 +1,2 @@
+{{- define "coreai-mcu-knowledge-pgv.container" -}}
+{{- end -}}

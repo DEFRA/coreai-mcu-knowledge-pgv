@@ -1,0 +1,5 @@
+
+{{- include "adp-aso-helm-library.flexible-servers-db" (list . "coreai-mcu-knowledge-pgv.flexible-servers-db") -}}
+
+{{- define "coreai-mcu-knowledge-pgv.flexible-servers-db" }}
+{{ end -}}

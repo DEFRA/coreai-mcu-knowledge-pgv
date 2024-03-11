@@ -1,0 +1,8 @@
+{{- include "adp-helm-library.deployment" (list . "coreai-mcu-knowledge-pgv.deployment") -}}
+{{- define "coreai-mcu-knowledge-pgv.deployment" -}}
+spec:
+  template:
+    spec:
+      containers:
+      - {{ include "adp-helm-library.container" (list . "coreai-mcu-knowledge-pgv.container") }}
+{{- end -}}
