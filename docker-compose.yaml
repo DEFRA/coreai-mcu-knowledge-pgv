@@ -10,10 +10,19 @@ services:
     environment:
       APPINSIGHTS_CLOUDROLE: coreai-mcu-knowledge-pgv-local
       APPINSIGHTS_CONNECTIONSTRING: ${APPINSIGHTS_CONNECTIONSTRING}
+      KNOWLEDGE_INDEX_TOPIC: ${KNOWLEDGE_INGESTION_TOPIC:-coreai-mcu-knowledge-index-req}
+      POSTGRES_DB: coreai-mcu-knowledge
+      POSTGRES_HOST: ${POSTGRES_HOST:-aphw-ddi-api-postgres}
+      POSTGRES_PORT: 5432
+      POSTGRES_SCHEMA_NAME: ${POSTGRES_SCHEMA_NAME:-public}
+      POSTGRES_USERNAME: ${POSTGRES_SCHEMA_USERNAME:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_SCHEMA_PASSWORD:-ppp}
 
   coreai-mcu-knowledge-pgv-postgres:
-    image: postgres:11.4-alpine
+    build:
+      context: ./postgres
+    image: coreai-mcu-knowledge-pgv-postgres
     environment:
-      POSTGRES_DB: coreai-mcu-knowledge-pgv
+      POSTGRES_DB: coreai-mcu-knowledge
       POSTGRES_PASSWORD: ppp
       POSTGRES_USERNAME: postgres
