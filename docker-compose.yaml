@@ -10,7 +10,7 @@ services:
     environment:
       APPINSIGHTS_CLOUDROLE: coreai-mcu-knowledge-pgv-local
       APPINSIGHTS_CONNECTIONSTRING: ${APPINSIGHTS_CONNECTIONSTRING}
-      KNOWLEDGE_INDEX_TOPIC: ${KNOWLEDGE_INGESTION_TOPIC:-coreai-mcu-knowledge-index-req}
+      KNOWLEDGE_INDEX_TOPIC: ${KNOWLEDGE_INGESTION_TOPIC:-coreai-mcu-knowledge-ingestion}${TOPIC_SUFFIX}
       POSTGRES_DB: coreai-mcu-knowledge
       POSTGRES_HOST: ${POSTGRES_HOST:-aphw-ddi-api-postgres}
       POSTGRES_PORT: 5432

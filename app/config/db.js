@@ -28,4 +28,6 @@ const getConfig = async () => {
   return config
 }
 
-module.exports = getConfig
+module.exports = {
+  getConfig
+}

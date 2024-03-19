@@ -1,6 +1,6 @@
 const { OpenAIEmbeddings } = require('@langchain/openai')
 const { PGVectorStore } = require('@langchain/community/vectorstores/pgvector')
-const dbConfig = require('../config/db')()
+const { getConfig } = require('../config/db')
 
 const saveVectors = async (documents) => {
   const embeddings = new OpenAIEmbeddings({
@@ -12,7 +12,7 @@ const saveVectors = async (documents) => {
   
   const pgvectorStore = await PGVectorStore.initialize(
     embeddings,
-    dbConfig
+    await getConfig()
   )
   
   await pgvectorStore.addDocuments(documents)
