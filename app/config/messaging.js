@@ -9,8 +9,9 @@ const sharedConfigSchema = {
 }
 
 const schema = Joi.object({
-  ingestionQueue: {
+  ingestionSubscription: {
     address: Joi.string(),
+    topic: Joi.string(),
     type: Joi.string(),
     ...sharedConfigSchema
   }
@@ -25,12 +26,15 @@ const sharedConfig = {
 }
 
 const config = {
-  ingestionQueue: {
-    address: process.env.KNOWLEDGE_INGESTION_TOPIC,
-    type: 'topic',
+  ingestionSubscription: {
+    address: process.env.KNOWLEDGE_INGESTION_PGV_SUBSCRIPTION,
+    topic: process.env.KNOWLEDGE_INGESTION_TOPIC,
+    type: 'subscription',
     ...sharedConfig
   }
 }
+
+console.log(config)
 
 const { error, value } = schema.validate(config, { abortEarly: false })
 

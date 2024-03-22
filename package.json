@@ -26,6 +26,7 @@
     "applicationinsights": "2.8.0",
     "ffc-messaging": "^2.9.0",
     "langchain": "^0.1.26",
+    "log-timestamp": "^0.3.0",
     "pg": "^8.11.3"
   },
   "devDependencies": {
