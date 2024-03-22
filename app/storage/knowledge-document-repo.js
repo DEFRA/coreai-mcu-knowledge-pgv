@@ -5,16 +5,37 @@ const config = require('../config/storage')
 
 const knowledgeContainer = blobServiceClient.getContainerClient(config.knowledgeContainer)
 
-const saveDocument = async (buffer) => {
+const saveKnowledge = async (buffer, type) => {
   const id = uuidv4()
 
   const blockBlobClient = knowledgeContainer.getBlockBlobClient(id)
+
+  const options = {
+    blobHTTPHeaders: {
+      blobContentType: type
+    }
+  }
   
-  await blockBlobClient.uploadData(buffer, buffer.length)
+  await blockBlobClient.uploadData(buffer, options)
 
   return id
 }
 
+const updateKnowledgeMetadata = async (id, metadata) => {
+  const blockBlobClient = knowledgeContainer.getBlockBlobClient(id)
+
+  if (!await blockBlobClient.exists()) {
+    const err = new Error(`The knowledge document with ID ${id} does not exist`)
+
+    err.code = 'NotFound'
+
+    throw err
+  }
+
+  await blockBlobClient.setMetadata(metadata)
+}
+
 module.exports = {
-  saveDocument
+  saveKnowledge,
+  updateKnowledgeMetadata
 }

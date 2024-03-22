@@ -1,5 +1,7 @@
+const Joi = require('joi')
+
 const { processPayloadFile } = require("../lib/file")
-const { saveDocument } = require("../storage/knowledge-document-repo")
+const { saveKnowledge, updateKnowledgeMetadata } = require("../storage/knowledge-document-repo")
 
 module.exports = [{
   method: 'POST',
@@ -20,7 +22,7 @@ module.exports = [{
   handler: async (request, h) => {
     const doc = await processPayloadFile(request.payload)
 
-    const id = await saveDocument(doc)
+    const id = await saveKnowledge(doc, request.headers['content-type'])
 
     return h.response({ id }).code(201)
   }
@@ -28,7 +30,27 @@ module.exports = [{
 {
   method: 'PUT',
   path: '/knowledge/{id}',
-  handler: (request, h) => {
+  options: {
+    validate: {
+      payload: Joi.object({
+        fileName: Joi.string().required(),
+        title: Joi.string().required(),
+        category: Joi.string().required(),
+        source: Joi.string().required()
+      })
+    }
+  },
+  handler: async (request, h) => {
+    try {
+      await updateKnowledgeMetadata(request.params.id, request.payload)
+    } catch (err) {
+      if (err.code === 'NotFound') {
+        return h.response().code(404).takeover()
+      }
+
+      throw err
+    }
+
     return h.response().code(200)
   }
 }]
