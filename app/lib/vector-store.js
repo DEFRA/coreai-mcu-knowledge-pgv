@@ -10,12 +10,12 @@ const ingestDocument = async (document) => {
     azureOpenAIApiDeploymentName: aiConfig.modelDeploymentName,
     azureOpenAIApiVersion: aiConfig.apiVersion
   })
-  
+
   const store = await PGVectorStore.initialize(
     embeddings,
     await getConfig()
   )
-  
+
   await store.addDocuments(document)
 
   await store.end()
