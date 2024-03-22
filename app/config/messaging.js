@@ -34,8 +34,6 @@ const config = {
   }
 }
 
-console.log(config)
-
 const { error, value } = schema.validate(config, { abortEarly: false })
 
 if (error) {
