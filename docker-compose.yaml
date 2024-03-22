@@ -7,22 +7,32 @@ services:
     container_name: coreai-mcu-knowledge-pgv
     depends_on:
       - coreai-mcu-knowledge-pgv-postgres
+      - coreai-mcu-knowledge-azurite
     environment:
       APPINSIGHTS_CLOUDROLE: coreai-mcu-knowledge-pgv-local
       APPINSIGHTS_CONNECTIONSTRING: ${APPINSIGHTS_CONNECTIONSTRING}
-      KNOWLEDGE_INDEX_TOPIC: ${KNOWLEDGE_INGESTION_TOPIC:-coreai-mcu-knowledge-ingestion}${TOPIC_SUFFIX}
+      KNOWLEDGE_INGESTION_TOPIC: ${KNOWLEDGE_INGESTION_TOPIC:-coreai-mcu-knowledge-ingestion}
       POSTGRES_DB: coreai-mcu-knowledge
       POSTGRES_HOST: ${POSTGRES_HOST:-aphw-ddi-api-postgres}
       POSTGRES_PORT: 5432
       POSTGRES_SCHEMA_NAME: ${POSTGRES_SCHEMA_NAME:-public}
       POSTGRES_USERNAME: ${POSTGRES_SCHEMA_USERNAME:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_SCHEMA_PASSWORD:-ppp}
+      AZURE_STORAGE_ACCOUNT: ${AZURE_STORAGE_ACCOUNT}
+      AZURE_OPENAI_INSTANCE_NAME: ${AZURE_OPENAI_INSTANCE_NAME}
+      AZURE_OPENAI_KEY: ${AZURE_OPENAI_KEY}
+      AZURE_OPENAI_API_VERSION: ${AZURE_OPENAI_API_VERSION}
+      EMBEDDING_MODEL_NAME: ${EMBEDDING_MODEL_NAME}
 
   coreai-mcu-knowledge-pgv-postgres:
     build:
-      context: ./postgres
+      context: .
+      dockerfile: ./postgres/Dockerfile
     image: coreai-mcu-knowledge-pgv-postgres
     environment:
       POSTGRES_DB: coreai-mcu-knowledge
       POSTGRES_PASSWORD: ppp
       POSTGRES_USERNAME: postgres
+
+  coreai-mcu-knowledge-azurite:
+    image: mcr.microsoft.com/azure-storage/azurite
