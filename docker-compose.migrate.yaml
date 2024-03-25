@@ -39,7 +39,9 @@ services:
       - ./scripts:/scripts
 
   coreai-mcu-knowledge-pgv-postgres:
-    image: postgres:11.4-alpine
+    build:
+      context: ./postgres
+    image: coreai-mcu-knowledge-pgv-postgres
     environment: *common-postgres
     volumes:
       - postgres_data:/var/lib/postgresql/data

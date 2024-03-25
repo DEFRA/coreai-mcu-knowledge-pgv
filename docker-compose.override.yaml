@@ -9,13 +9,25 @@ services:
     image: coreai-mcu-knowledge-pgv-development
     container_name: coreai-mcu-knowledge-pgv-development
     ports:
-      - "3000:3000"
-      - "9229:9229"
+      - "${CORE_AI_KNOWLEDGE_PORT:-3000}:3000"
+      - "${CORE_AI_KNOWLEDGE_DEBUG_PORT:-9229}:9229"
+    depends_on:
+      - coreai-mcu-knowledge-pgv-postgres
+      - coreai-mcu-knowledge-azurite
     volumes:
       - ./app:/home/node/app
       - ./test:/home/node/test
       - ./scripts:/home/node/scripts
       - ./package.json:/home/node/package.json
+    environment:
+      MESSAGE_QUEUE_HOST: ${MESSAGE_QUEUE_HOST}
+      MESSAGE_QUEUE_USER: ${MESSAGE_QUEUE_USER}
+      MESSAGE_QUEUE_PASSWORD: ${MESSAGE_QUEUE_PASSWORD}
+      KNOWLEDGE_INGESTION_PGV_SUBSCRIPTION: ${KNOWLEDGE_INGESTION_PGV_SUBSCRIPTION:-coreai-mcu-knowledge-pgv}${MESSAGE_QUEUE_SUFFIX}
+      KNOWLEDGE_INGESTION_TOPIC: ${KNOWLEDGE_INGESTION_TOPIC:-coreai-mcu-knowledge-ingestion}${MESSAGE_QUEUE_SUFFIX}
+      AZURE_STORAGE_USE_CONNECTION_STRING: ${AZURE_STORAGE_USE_CONNECTION_STRING:-true}
+      AZURE_STORAGE_CONNECTION_STRING: ${AZURE_STORAGE_CONNECTION_STRING:-DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;TableEndpoint=http://host.docker.internal:10002/devstoreaccount1;}
+      AZURE_STORAGE_ACCOUNT: ${AZURE_STORAGE_ACCOUNT:-devstoreaccount1}
   
   coreai-mcu-knowledge-pgv-postgres:
     ports:
@@ -23,5 +35,13 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  coreai-mcu-knowledge-azurite:
+    image: mcr.microsoft.com/azure-storage/azurite
+    ports:
+      - "${CORE_AI_KNOWLEDGE_BLOB_PORT:-10000}:10000"
+    volumes:
+      - azurite_data:/data
+
 volumes:
   postgres_data:
+  azurite_data:
