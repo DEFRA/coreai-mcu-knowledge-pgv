@@ -1,9 +1,12 @@
-const { getKnowledge } = require('../storage/knowledge-document-repo')
+const { PGVectorStore } = require('@langchain/community/vectorstores/pgvector')
+const { embeddings } = require('./ai')
+const { getConfig } = require('../config/db')
 
-const ingestDocument = async (id) => {
-  const document = await getKnowledge(id)
-}
+const vectorStore = await PGVectorStore.initialize(
+  embeddings,
+  await getConfig()
+)
 
 module.exports = {
-  ingestDocument
+  vectorStore
 }

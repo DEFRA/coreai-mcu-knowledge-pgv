@@ -21,7 +21,10 @@ const getKnowledge = async (id) => {
 
   return {
     document,
-    metadata: mapMetadataToBase(metadata.metadata)
+    metadata: {
+      ...mapMetadataToBase(metadata.metadata),
+      blobContentType: metadata.metadata.blobContentType
+    }
   }
 }
 
