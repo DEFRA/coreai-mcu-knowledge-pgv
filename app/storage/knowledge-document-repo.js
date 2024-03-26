@@ -17,14 +17,15 @@ const getKnowledge = async (id) => {
   }
 
   const document = await client.downloadToBuffer()
-  const metadata = await client.getProperties()
+  const properties = await client.getProperties()
+
+  const metadata = mapMetadataToBase(properties.metadata)
+  const contentType = properties.contentType
 
   return {
     document,
-    metadata: {
-      ...mapMetadataToBase(metadata.metadata),
-      blobContentType: metadata.metadata.blobContentType
-    }
+    metadata,
+    contentType
   }
 }
 

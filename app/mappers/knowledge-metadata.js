@@ -1,11 +1,11 @@
-const base = {
+const blob = {
   fileName: 'file_name',
   title: 'title',
   category: 'category',
   source: 'source'
 }
 
-const blob = {
+const base = {
   'file_name': 'fileName',
   title: 'title',
   category: 'category',
@@ -16,15 +16,16 @@ const map = (metadata, lookup) => {
   const obj = {}
 
   for (const key in metadata) {
+    console.log(`${key} -> ${lookup[key]}`)
     obj[lookup[key]] = metadata[key]
   }
 
   return obj
 }
 
-const mapMetadataToBlob = (metadata) => map(metadata, base)
+const mapMetadataToBlob = (metadata) => map(metadata, blob)
 
-const mapMetadataToBase = (metadata) => map(metadata, blob)
+const mapMetadataToBase = (metadata) => map(metadata, base)
 
 module.exports = {
   mapMetadataToBlob,
