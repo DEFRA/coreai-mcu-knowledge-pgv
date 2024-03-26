@@ -16,14 +16,14 @@ const getKnowledge = async (id) => {
     throw err
   }
 
-  const document = await client.downloadToBuffer()
+  const buffer = await client.downloadToBuffer()
   const properties = await client.getProperties()
 
   const metadata = mapMetadataToBase(properties.metadata)
   const contentType = properties.contentType
 
   return {
-    document,
+    buffer,
     metadata,
     contentType
   }

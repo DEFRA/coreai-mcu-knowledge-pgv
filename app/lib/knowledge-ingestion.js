@@ -1,9 +1,15 @@
 const { getKnowledge } = require('../storage/knowledge-document-repo')
-const { vectorStore } = require('./vector-store')
+const { loadDocument } = require('./document-loader')
+const { getVectorStore } = require('./vector-store')
 
 const ingestDocument = async (id) => {
   const document = await getKnowledge(id)
-  console.log(document)
+
+  const texts = await loadDocument(document)
+
+  const vectorStore = await getVectorStore()
+  
+  await vectorStore.addDocuments(texts)
 }
 
 module.exports = {
