@@ -1,24 +1,7 @@
-const { OpenAIEmbeddings } = require('@langchain/openai')
-const { PGVectorStore } = require('@langchain/community/vectorstores/pgvector')
-const { getConfig } = require('../config/db')
-const aiConfig = require('../config/ai')
+const { getKnowledge } = require('../storage/knowledge-document-repo')
 
-const ingestDocument = async (document) => {
-  const embeddings = new OpenAIEmbeddings({
-    azureOpenAIApiInstanceName: aiConfig.instanceName,
-    azureOpenAIApiKey: aiConfig.apiKey,
-    azureOpenAIApiDeploymentName: aiConfig.modelDeploymentName,
-    azureOpenAIApiVersion: aiConfig.apiVersion
-  })
-
-  const store = await PGVectorStore.initialize(
-    embeddings,
-    await getConfig()
-  )
-
-  await store.addDocuments(document)
-
-  await store.end()
+const ingestDocument = async (id) => {
+  const document = await getKnowledge(id)
 }
 
 module.exports = {
