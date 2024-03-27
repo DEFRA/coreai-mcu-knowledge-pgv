@@ -7,7 +7,7 @@ describe('Healthz test', () => {
     await server.initialize()
   })
 
-  test('GET /healthy route returns 200', async () => {
+  test('GET /healthz route returns 200', async () => {
     const options = {
       method: 'GET',
       url: '/healthz'
