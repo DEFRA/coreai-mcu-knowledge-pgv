@@ -6,7 +6,7 @@ let vectorStore
 
 const getVectorStore = async () => {
   if (vectorStore) {
-    return vectorStore 
+    return vectorStore
   }
 
   vectorStore = await PGVectorStore.initialize(

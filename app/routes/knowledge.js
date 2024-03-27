@@ -1,7 +1,7 @@
 const Joi = require('joi')
 
-const { processPayloadFile } = require("../lib/file")
-const { saveKnowledge, updateKnowledgeMetadata } = require("../storage/knowledge-document-repo")
+const { processPayloadFile } = require('../lib/file')
+const { saveKnowledge, updateKnowledgeMetadata } = require('../storage/knowledge-document-repo')
 
 module.exports = [{
   method: 'POST',

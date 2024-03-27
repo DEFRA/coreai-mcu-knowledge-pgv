@@ -6,7 +6,7 @@ const blob = {
 }
 
 const base = {
-  'file_name': 'fileName',
+  file_name: 'fileName',
   title: 'title',
   category: 'category',
   source: 'source'

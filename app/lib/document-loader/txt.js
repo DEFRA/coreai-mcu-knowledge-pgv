@@ -1,4 +1,4 @@
-const { Blob } = require("buffer");
+const { Blob } = require('buffer')
 const { TextLoader } = require('langchain/document_loaders/fs/text')
 
 const load = async (document) => {
