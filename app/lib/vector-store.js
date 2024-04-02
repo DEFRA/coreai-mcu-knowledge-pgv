@@ -1,26 +1,22 @@
-const { OpenAIEmbeddings } = require('@langchain/openai')
 const { PGVectorStore } = require('@langchain/community/vectorstores/pgvector')
+const { embeddings } = require('./ai')
 const { getConfig } = require('../config/db')
-const aiConfig = require('../config/ai')
 
-const ingestDocument = async (document) => {
-  const embeddings = new OpenAIEmbeddings({
-    azureOpenAIApiInstanceName: aiConfig.instanceName,
-    azureOpenAIApiKey: aiConfig.apiKey,
-    azureOpenAIApiDeploymentName: aiConfig.modelDeploymentName,
-    azureOpenAIApiVersion: aiConfig.apiVersion
-  })
+let vectorStore
 
-  const store = await PGVectorStore.initialize(
+const getVectorStore = async () => {
+  if (vectorStore) {
+    return vectorStore
+  }
+
+  vectorStore = await PGVectorStore.initialize(
     embeddings,
     await getConfig()
   )
 
-  await store.addDocuments(document)
-
-  await store.end()
+  return vectorStore
 }
 
 module.exports = {
-  ingestDocument
+  getVectorStore
 }
