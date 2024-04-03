@@ -4,7 +4,7 @@ const { ingestDocument } = require('../../lib/knowledge-ingestion')
 
 const processIngestion = async (message, receiver) => {
   try {
-    const { body } = validateIngestionMessage(message.body)
+    const body = validateIngestionMessage(message.body)
     console.log(`Processing ingestion: ${util.inspect(body)}`)
 
     await ingestDocument(body.document_id)
