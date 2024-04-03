@@ -10,13 +10,13 @@ const schema = Joi.object({
     password: Joi.string().required(),
     database: Joi.string().required()
   }).required(),
-  tableName: Joi.string().default('knowledge_vectors'),
+  tableName: Joi.string().default('mcu_knowledge_vectors'),
   columns: Joi.object({
     idColumnName: Joi.string().default('id'),
     vectorColumnName: Joi.string().default('vector'),
     contentColumnName: Joi.string().default('content'),
     metadataColumnName: Joi.string().default('metadata')
-  }).required(),
+  }),
   aadEndpoint: Joi.string().default('https://ossrdbms-aad.database.windows.net')
 })
 
@@ -28,6 +28,13 @@ const config = {
     user: process.env.POSTGRES_USERNAME,
     password: process.env.POSTGRES_PASSWORD,
     database: process.env.POSTGRES_DB
+  },
+  tableName: 'mcu_knowledge_vectors',
+  columns: {
+    idColumnName: 'id',
+    vectorColumnName: 'vector',
+    contentColumnName: 'content',
+    metadataColumnName: 'metadata'
   }
 }
 
