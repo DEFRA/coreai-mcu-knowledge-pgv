@@ -5,6 +5,45 @@ const { mapMetadataToBlob, mapMetadataToBase } = require('../mappers/knowledge-m
 
 const knowledgeContainer = blobServiceClient.getContainerClient(config.knowledgeContainer)
 
+const listKnowledge = async (category = '', orderBy = 'lastModified ', orderByDirection = 'Desc') => {
+  const blobs = []
+
+  const listOptions = {
+    includeCopy: false,
+    includeDeleted: false,
+    includeDeletedWithVersions: false,
+    includeLegalHold: false,
+    includeMetadata: false,
+    includeSnapshots: true,
+    includeTags: true,
+    includeUncommitedBlobs: false,
+    includeVersions: false,
+    prefix: ''
+  }
+
+  for await (const blob of knowledgeContainer.listBlobsFlat(listOptions)) {
+    const metadata = mapMetadataToBase(blob.metadata)
+
+    blob.metadata = metadata
+    if (category === '' || metadata.category === category) {
+      blobs.push(blob)
+    }
+  }
+
+  blobs.sort((a, b) => {
+    const aValue = new Date(a.properties[orderBy])
+    const bValue = new Date(b.properties[orderBy])
+
+    if (orderByDirection === 'Desc') {
+      return bValue - aValue
+    } else {
+      return aValue - bValue
+    }
+  })
+
+  return blobs
+}
+
 const getKnowledge = async (id) => {
   const client = knowledgeContainer.getBlockBlobClient(id)
 
@@ -62,6 +101,7 @@ const updateKnowledgeMetadata = async (id, metadata) => {
 }
 
 module.exports = {
+  listKnowledge,
   getKnowledge,
   saveKnowledge,
   updateKnowledgeMetadata

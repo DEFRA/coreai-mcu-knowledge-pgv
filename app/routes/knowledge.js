@@ -1,9 +1,20 @@
 const Joi = require('joi')
 
 const { processPayloadFile } = require('../lib/file')
-const { saveKnowledge, updateKnowledgeMetadata } = require('../storage/knowledge-document-repo')
+const { listKnowledge, saveKnowledge, updateKnowledgeMetadata } = require('../storage/knowledge-document-repo')
 
 module.exports = [{
+  method: 'GET',
+  path: '/knowledge',
+  options: {
+  },
+  handler: async (request, h) => {
+    const { category } = request.query
+    const knowledge = await listKnowledge(category)
+    return h.response(knowledge).code(201)
+  }
+},
+{
   method: 'POST',
   path: '/knowledge',
   options: {
