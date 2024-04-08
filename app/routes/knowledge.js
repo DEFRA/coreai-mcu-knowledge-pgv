@@ -1,9 +1,29 @@
 const Joi = require('joi')
 
 const { processPayloadFile } = require('../lib/file')
-const { saveKnowledge, updateKnowledgeMetadata } = require('../storage/knowledge-document-repo')
+const { listKnowledge, saveKnowledge, updateKnowledgeMetadata } = require('../storage/knowledge-document-repo')
 
 module.exports = [{
+  method: 'GET',
+  path: '/knowledge',
+  options: {
+    tags: ['api', 'knowledge'],
+    validate: {
+      query: Joi.object({
+        category: Joi.string().valid('', 'Farming', 'Fishing', 'Environment').default(''),
+        orderBy: Joi.string().valid('lastModified', 'createdOn').default('lastModified'),
+        orderByDirection: Joi.string().valid('Asc', 'Desc').default('Desc')
+      })
+    }
+  },
+  handler: async (request, h) => {
+    const { category, orderBy, orderByDirection } = request.query
+    const knowledge = await listKnowledge(category, orderBy, orderByDirection)
+
+    return h.response(knowledge).code(200)
+  }
+},
+{
   method: 'POST',
   path: '/knowledge',
   options: {
