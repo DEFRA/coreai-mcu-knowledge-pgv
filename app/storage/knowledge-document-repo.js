@@ -30,7 +30,11 @@ const listKnowledge = async (category = '', orderBy = 'lastModified ', orderByDi
     }
   }
 
-  blobs.sort((a, b) => {
+  return sortBlobs(blobs, orderBy, orderByDirection)
+}
+
+const sortBlobs = (blobs, orderBy = 'lastModified ', orderByDirection = 'Desc') => {
+  return blobs.sort((a, b) => {
     const aValue = new Date(a.properties[orderBy])
     const bValue = new Date(b.properties[orderBy])
 
@@ -40,8 +44,6 @@ const listKnowledge = async (category = '', orderBy = 'lastModified ', orderByDi
       return aValue - bValue
     }
   })
-
-  return blobs
 }
 
 const getKnowledge = async (id) => {
