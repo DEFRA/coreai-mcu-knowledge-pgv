@@ -46,6 +46,10 @@ const sortBlobs = (blobs, orderBy = 'lastModified ', orderByDirection = 'Desc') 
   })
 }
 
+const initialiseContainers = async () => {
+  await knowledgeContainer.createIfNotExists()
+}
+
 const getKnowledge = async (id) => {
   const client = knowledgeContainer.getBlockBlobClient(id)
 
@@ -106,5 +110,6 @@ module.exports = {
   listKnowledge,
   getKnowledge,
   saveKnowledge,
-  updateKnowledgeMetadata
+  updateKnowledgeMetadata,
+  initialiseContainers
 }
