@@ -5,6 +5,10 @@ const { mapMetadataToBlob, mapMetadataToBase } = require('../mappers/knowledge-m
 
 const knowledgeContainer = blobServiceClient.getContainerClient(config.knowledgeContainer)
 
+const initialiseContainers = async () => {
+  await knowledgeContainer.createIfNotExists()
+}
+
 const getKnowledge = async (id) => {
   const client = knowledgeContainer.getBlockBlobClient(id)
 
@@ -64,5 +68,6 @@ const updateKnowledgeMetadata = async (id, metadata) => {
 module.exports = {
   getKnowledge,
   saveKnowledge,
-  updateKnowledgeMetadata
+  updateKnowledgeMetadata,
+  initialiseContainers
 }
