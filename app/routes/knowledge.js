@@ -1,7 +1,7 @@
 const Joi = require('joi')
 
 const { processPayloadFile } = require('../lib/file')
-const { listKnowledge, saveKnowledge, updateKnowledgeMetadata } = require('../storage/knowledge-document-repo')
+const { listKnowledge, saveKnowledge, updateKnowledgeMetadata, deleteKnowledge } = require('../storage/knowledge-document-repo')
 
 module.exports = [{
   method: 'GET',
@@ -10,6 +10,7 @@ module.exports = [{
     tags: ['api', 'knowledge'],
     validate: {
       query: Joi.object({
+        search: Joi.string().default(''),
         category: Joi.string().valid('', 'Farming', 'Fishing', 'Environment').default(''),
         orderBy: Joi.string().valid('lastModified', 'createdOn').default('lastModified'),
         orderByDirection: Joi.string().valid('Asc', 'Desc').default('Desc')
@@ -17,8 +18,8 @@ module.exports = [{
     }
   },
   handler: async (request, h) => {
-    const { category, orderBy, orderByDirection } = request.query
-    const knowledge = await listKnowledge(category, orderBy, orderByDirection)
+    const { search, category, orderBy, orderByDirection } = request.query
+    const knowledge = await listKnowledge(search, category, orderBy, orderByDirection)
 
     return h.response(knowledge).code(200)
   }
@@ -70,6 +71,25 @@ module.exports = [{
 
       throw err
     }
+
+    return h.response().code(200)
+  }
+},
+{
+  method: 'DELETE',
+  path: '/knowledge/{id}',
+  options: {
+    tags: ['api', 'knowledge'],
+    validate: {
+      params: Joi.object({
+        id: Joi.string().uuid().required()
+      })
+    }
+  },
+  handler: async (request, h) => {
+    await deleteKnowledge(
+      request.params.id
+    )
 
     return h.response().code(200)
   }

@@ -5,7 +5,7 @@ const { mapMetadataToBlob, mapMetadataToBase } = require('../mappers/knowledge-m
 
 const knowledgeContainer = blobServiceClient.getContainerClient(config.knowledgeContainer)
 
-const listKnowledge = async (category = '', orderBy = 'lastModified ', orderByDirection = 'Desc') => {
+const listKnowledge = async (search = '', category = '', orderBy = 'lastModified ', orderByDirection = 'Desc') => {
   const blobs = []
 
   const listOptions = {
@@ -25,7 +25,15 @@ const listKnowledge = async (category = '', orderBy = 'lastModified ', orderByDi
     const metadata = mapMetadataToBase(blob.metadata)
 
     blob.metadata = metadata
-    if (category === '' || metadata.category === category) {
+    if (search !== '' && metadata.fileName) {
+      if (metadata.fileName.toLowerCase().indexOf(search.toLowerCase()) > -1) {
+        if (metadata.category && category !== '' && metadata.category === category) {
+          blobs.push(blob)
+        } else if (category === '') {
+          blobs.push(blob)
+        }
+      }
+    } else if (metadata.category && (category === '' || metadata.category === category)) {
       blobs.push(blob)
     }
   }
@@ -106,10 +114,25 @@ const updateKnowledgeMetadata = async (id, metadata) => {
   await client.setMetadata(mapped)
 }
 
+const deleteKnowledge = async (id) => {
+  const client = knowledgeContainer.getBlockBlobClient(id)
+
+  if (!await client.exists()) {
+    const err = new Error(`The knowledge document with ID ${id} does not exist`)
+
+    err.code = 'NotFound'
+
+    throw err
+  }
+
+  await client.delete({ ids: [id] })
+}
+
 module.exports = {
   listKnowledge,
   getKnowledge,
   saveKnowledge,
   updateKnowledgeMetadata,
-  initialiseContainers
+  initialiseContainers,
+  deleteKnowledge
 }
