@@ -63,7 +63,7 @@ module.exports = [{
   },
   handler: async (request, h) => {
     try {
-      await updateKnowledgeMetadata(request.params.id, request.payload)
+      await updateKnowledgeMetadata(request.params.id, { id: request.params.id, ...request.payload })
     } catch (err) {
       if (err.code === 'NotFound') {
         return h.response().code(404).takeover()

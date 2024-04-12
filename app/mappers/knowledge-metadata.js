@@ -1,4 +1,5 @@
 const blob = {
+  id: 'id',
   fileName: 'file_name',
   title: 'title',
   category: 'category',
@@ -6,6 +7,7 @@ const blob = {
 }
 
 const base = {
+  id: 'id',
   file_name: 'fileName',
   title: 'title',
   category: 'category',
