@@ -12,7 +12,7 @@ const loaders = {
   [TXT]: loadText
 }
 
-const loadDocument = async (document) => {
+const loadDocument = async (documentId, document) => {
   const blobMetadata = document.metadata
 
   const loader = loaders[document.contentType]
@@ -26,6 +26,7 @@ const loadDocument = async (document) => {
   const docsWithMetadata = docs.map(doc => ({
     ...doc,
     metadata: {
+      documentId,
       ...doc.metadata,
       blobMetadata: {
         ...blobMetadata,
