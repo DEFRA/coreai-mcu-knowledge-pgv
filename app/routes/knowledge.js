@@ -2,6 +2,7 @@ const Joi = require('joi')
 
 const { processPayloadFile } = require('../lib/file')
 const { listKnowledge, saveKnowledge, updateKnowledgeMetadata, deleteKnowledge } = require('../storage/knowledge-document-repo')
+const { deleteEmbeddings } = require('../lib/delete-embeddings')
 
 module.exports = [{
   method: 'GET',
@@ -88,6 +89,10 @@ module.exports = [{
   },
   handler: async (request, h) => {
     await deleteKnowledge(
+      request.params.id
+    )
+
+    await deleteEmbeddings(
       request.params.id
     )
 
