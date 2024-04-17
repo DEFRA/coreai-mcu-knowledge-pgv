@@ -23,12 +23,12 @@ const listKnowledge = async (search = '', category = '', orderBy = 'lastModified
 
   for await (const blob of knowledgeContainer.listBlobsFlat(listOptions)) {
     const metadata = mapMetadataToBase(blob.metadata)
-
     blob.metadata = metadata
+    const metaCategory = metadata.category
+
     if (search !== '' && metadata.fileName) {
       search = search.toLowerCase()
       const metaFilename = metadata.fileName.toLowerCase()
-      const metaCategory = metadata.category
 
       if (metaFilename.indexOf(search) > -1) {
         if (metaCategory && category !== '' && metaCategory === category) {
