@@ -26,14 +26,18 @@ const listKnowledge = async (search = '', category = '', orderBy = 'lastModified
 
     blob.metadata = metadata
     if (search !== '' && metadata.fileName) {
-      if (metadata.fileName.toLowerCase().indexOf(search.toLowerCase()) > -1) {
-        if (metadata.category && category !== '' && metadata.category === category) {
+      search = search.toLowerCase()
+      const metaFilename = metadata.fileName.toLowerCase()
+      const metaCategory = metadata.category
+
+      if (metaFilename.indexOf(search) > -1) {
+        if (metaCategory && category !== '' && metaCategory === category) {
           blobs.push(blob)
         } else if (category === '') {
           blobs.push(blob)
         }
       }
-    } else if (metadata.category && (category === '' || metadata.category === category)) {
+    } else if (metaCategory && (category === '' || metaCategory === category)) {
       blobs.push(blob)
     }
   }
