@@ -1,15 +1,11 @@
-# For documentation on how to use, please go here: https://github.com/DEFRA/adp-aso-helm-library?tab=readme-ov-file#adp-platform-azure-service-operator-helm-library-chart.
-# You may create Queues, Topics, Subscriptions, Storage Accounts, Databases and Role Assignments on these here.
-
 namespaceTopics:
-  - name: coreai-mcu-knowledge-ingestion
-      owner: 'no'
-      roleAssignments:  
-        - roleName: TopicReceiver
-      topicSubscriptions:
-        - name: coreai-mcu-knowledge-pgv
+  - name: knowledge-ingestion
+    roleAssignments:
+      - roleName: 'TopicReceiver'
+    topicSubscriptions:
+      - name: coreai-mcu-knowledge-pgv
 postgres:
   db:
-    name: core_ai_mcu_knowledge 
+    name: core_ai_mcu_knowledge
     charset: UTF8
     collation: en_US.utf8
