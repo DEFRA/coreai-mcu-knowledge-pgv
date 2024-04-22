@@ -2,10 +2,12 @@
 # You may create Queues, Topics, Subscriptions, Storage Accounts, Databases and Role Assignments on these here.
 
 namespaceTopics:
-  - name: coreai-mcu-knowledge-index-req
-    owner: 'no'
-    roleAssignments:
-      - roleName: 'TopicReceiver'
+  - name: coreai-mcu-knowledge-ingestion
+      owner: 'no'
+      roleAssignments:  
+        - roleName: TopicReceiver
+      topicSubscriptions:
+        - name: coreai-mcu-knowledge-pgv
 postgres:
   db:
     name: core_ai_mcu_knowledge 
