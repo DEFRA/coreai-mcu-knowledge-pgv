@@ -1,5 +1,5 @@
 namespaceTopics:
-  - name: knowledge-ingestion
+  - name: knowledge-ingest
     roleAssignments:
       - roleName: 'TopicReceiver'
     topicSubscriptions:

@@ -16,7 +16,11 @@ jest.mock('../../app/messaging', () => {
   }
 })
 
-jest.mock('../../app/storage/knowledge-document-repo')
+jest.mock('../../app/storage/knowledge-document-repo', () => {
+  return {
+    initialiseContainers: jest.fn()
+  }
+})
 
 jest.mock('../../app/plugins/router', () => {
   return {
