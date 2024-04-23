@@ -6,6 +6,6 @@ namespaceTopics:
       - name: coreai-mcu-knowledge-pgv
 postgres:
   db:
-    name: core_ai_mcu_knowledge
+    name: knowledge
     charset: UTF8
     collation: en_US.utf8
