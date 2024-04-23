@@ -14,7 +14,7 @@
   value: "{{servicename}}-POSTGRES-HOST"
   type: "keyvault"
 - key: POSTGRES_DB
-  value: "core_ai_mcu_knowledge"
+  value: "coreai-mcu-knowledge-pgv"
 - key: AZURE_OPENAI_INSTANCE_NAME
   value: "{{servicename}}-AZURE-OPENAI-INSTANCE-NAME"
   type: "keyvault"
