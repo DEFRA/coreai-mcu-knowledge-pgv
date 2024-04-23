@@ -1,4 +1,5 @@
 const mockStart = jest.fn()
+
 jest.mock('../../app/server', () =>
   jest.fn().mockResolvedValue({
     start: mockStart,
@@ -8,7 +9,25 @@ jest.mock('../../app/server', () =>
   })
 )
 
+jest.mock('../../app/messaging', () => {
+  return {
+    start: jest.fn(),
+    stop: jest.fn()
+  }
+})
+
 jest.mock('../../app/storage/knowledge-document-repo')
+
+jest.mock('../../app/plugins/router', () => {
+  return {
+    plugin: {
+      name: 'router',
+      register: (server, _) => {
+        server.route([])
+      }
+    }
+  }
+})
 
 const createServer = require('../../app/server')
 
@@ -28,7 +47,7 @@ describe('Server setup', () => {
   })
 
   test('start the server', async () => {
-    require('../../app/index')
+    await require('../../app/index')
     expect(createServer).toHaveBeenCalled()
   })
 
