@@ -3,14 +3,6 @@
     <changeSet author="Sebastian Horon" id="1">
       <tagDatabase tag="v2.0.0" />
     </changeSet>
-    <changeSet author="Sebastian Horon" id="2">
-      <sql>
-        CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
-      </sql>
-      <rollback>
-        DROP EXTENSION "uuid-ossp";
-      </rollback>
-    </changeSet>
     <changeSet author="Sebastian Horon" id="3">
         <createTable tableName="mcu_knowledge_vectors">
             <column name="id" type="uuid" defaultValue="uuid_generate_v4()">
