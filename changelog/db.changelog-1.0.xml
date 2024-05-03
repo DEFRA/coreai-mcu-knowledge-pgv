@@ -14,12 +14,4 @@
         DROP EXTENSION vector;
       </rollback>
     </changeSet>
-    <changeSet author="Sebastian Horon" id="2">
-      <sql>
-        CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
-      </sql>
-      <rollback>
-        DROP EXTENSION "uuid-ossp";
-      </rollback>
-    </changeSet>
 </databaseChangeLog>
