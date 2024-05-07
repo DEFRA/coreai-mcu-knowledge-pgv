@@ -5,10 +5,10 @@
   value: "{{servicename}}-MESSAGE-QUEUE-HOST"
   type: "keyvault"
 - key: KNOWLEDGE_INGESTION_PGV_SUBSCRIPTION
-  value: "coreai-mcu-knowledge-pgv"
+  value: "{{servicename}}-INGESTION-SUBSCRIPTION"
   type: "keyvault"
 - key: KNOWLEDGE_INGESTION_TOPIC
-  value: "coreai-mcu-knowledge-ingestion"
+  value: "{{servicename}}-INGESTION-TOPIC"
   type: "keyvault"
 - key: POSTGRES_HOST
   value: "{{servicename}}-POSTGRES-HOST"
