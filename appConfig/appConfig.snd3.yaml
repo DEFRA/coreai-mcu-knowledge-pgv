@@ -13,6 +13,8 @@
   type: "keyvault"
 - key: POSTGRES_DB
   value: "coreai-mcu-knowledge"
+- key: POSTGRES_PORT
+  value: "5432"
 - key: AZURE_OPENAI_INSTANCE_NAME
   value: "{{servicename}}-AZURE-OPENAI-INSTANCE-NAME"
   type: "keyvault"
