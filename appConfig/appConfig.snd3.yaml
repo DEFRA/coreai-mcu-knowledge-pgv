@@ -5,11 +5,9 @@
   value: "{{servicename}}-MESSAGE-QUEUE-HOST"
   type: "keyvault"
 - key: KNOWLEDGE_INGESTION_PGV_SUBSCRIPTION
-  value: "{{servicename}}-INGESTION-SUBSCRIPTION"
-  type: "keyvault"
+  value: "coreai-mcu-knowledge-pgv"
 - key: KNOWLEDGE_INGESTION_TOPIC
-  value: "{{servicename}}-INGESTION-TOPIC"
-  type: "keyvault"
+  value: "coreai-mcu-knowledge-ingestion"
 - key: POSTGRES_HOST
   value: "{{servicename}}-POSTGRES-HOST"
   type: "keyvault"
@@ -27,4 +25,5 @@
   type: "keyvault"
   value: "{{servicename}}-EMBEDDING-MODEL-NAME"
 - key: AZURE_STORAGE_ACCOUNT
-  value: "sndadpinfst3401coreaipgv" 
+  value: "{{servicename}}-AZURE-STORAGE-ACCOUNT" 
+  type: "keyvault"

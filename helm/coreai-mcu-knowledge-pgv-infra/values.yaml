@@ -11,7 +11,7 @@ postgres:
     collation: en_US.utf8
 
 storageAccounts:
-  - name: 'coreaipgv'
+  - name: 'coreai'
     blobContainers:
       - name: 'knowledge'
         roleAssignments:
