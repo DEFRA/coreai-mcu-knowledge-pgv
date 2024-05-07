@@ -7,7 +7,7 @@
 - key: KNOWLEDGE_INGESTION_PGV_SUBSCRIPTION
   value: "coreai-mcu-knowledge-pgv"
 - key: KNOWLEDGE_INGESTION_TOPIC
-  value: "coreai-mcu-knowledge-ingestion"
+  value: "coreai-mcu-knowledge-ingest"
 - key: POSTGRES_HOST
   value: "{{servicename}}-POSTGRES-HOST"
   type: "keyvault"
