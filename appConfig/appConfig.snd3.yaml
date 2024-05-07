@@ -26,3 +26,5 @@
 - key: EMBEDDING_MODEL_NAME
   type: "keyvault"
   value: "{{servicename}}-EMBEDDING-MODEL-NAME"
+- key: AZURE_STORAGE_ACCOUNT
+  value: "sndadpinfst3401coreaipgv" 

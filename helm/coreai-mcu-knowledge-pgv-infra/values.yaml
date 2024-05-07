@@ -9,3 +9,10 @@ postgres:
     name: knowledge
     charset: UTF8
     collation: en_US.utf8
+
+storageAccounts:
+  - name: 'coreaipgv'
+    blobContainers:
+      - name: 'knowledge'
+        roleAssignments:
+          - roleName: 'BlobDataContributor'
