@@ -11,6 +11,9 @@
 - key: POSTGRES_HOST
   value: "{{servicename}}-POSTGRES-HOST"
   type: "keyvault"
+- key: POSTGRES_USER
+  value: "{{servicename}}-POSTGRES-USERNAME"
+  type: "keyvault"
 - key: POSTGRES_DB
   value: "coreai-mcu-knowledge"
 - key: POSTGRES_PORT
