@@ -1,6 +1,6 @@
 {
   "name": "coreai-mcu-knowledge-pgv",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "",
   "homepage": "github.com?owner=defra&repo=coreai-mcu-knowledge-pgv&organization=defra",
   "main": "app/index.js",
