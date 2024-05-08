@@ -22,4 +22,4 @@ process.on('SIGINT', async () => {
   process.exit(0)
 })
 
-init()
+module.exports = init()

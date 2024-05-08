@@ -38,17 +38,17 @@ const config = {
   }
 }
 
-const { error, value } = schema.validate(config)
-
-if (error) {
-  throw new Error(`Postgres config validation error: ${error.message}`)
-}
-
 const getConfig = async () => {
   if (process.env.NODE_ENV === 'production') {
     const credential = new DefaultAzureCredential()
     const { token } = await credential.getToken(value.aadEndpoint, { requestOptions: { timeout: 1000 } })
-    value.postgresConnectionOptions.password = token
+    config.postgresConnectionOptions.password = token
+  }
+
+  const { error, value } = schema.validate(config)
+
+  if (error) {
+    throw new Error(`Postgres config validation error: ${error.message}`)
   }
 
   return value

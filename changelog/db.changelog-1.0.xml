@@ -8,7 +8,7 @@
     </changeSet>
     <changeSet author="liquibase (generated)" id="1596009647200-2">
       <sql>
-        CREATE EXTENSION vector;
+        CREATE EXTENSION IF NOT EXISTS vector;
       </sql>
       <rollback>
         DROP EXTENSION vector;

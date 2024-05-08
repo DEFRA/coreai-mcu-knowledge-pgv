@@ -4,7 +4,7 @@ const deleteEmbeddings = async (id) => {
   const vectorStore = await getVectorStore()
 
   const filter = {
-    filter: { "documentId": id }
+    filter: { documentId: id }
   }
 
   await vectorStore.delete(filter)
