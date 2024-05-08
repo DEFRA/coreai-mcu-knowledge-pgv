@@ -42,7 +42,7 @@ const getConfig = async () => {
   const { error, value } = schema.validate(config)
 
   if (process.env.NODE_ENV === 'production') {
-    const credential = new DefaultAzureCredential()
+    const credential = new DefaultAzureCredential({ managedIdentityClientId: process.env.AZURE_CLIENT_ID })
     const { token } = await credential.getToken(value.aadEndpoint, { requestOptions: { timeout: 1000 } })
     value.postgresConnectionOptions.password = token
   }
@@ -53,8 +53,6 @@ const getConfig = async () => {
 
   return value
 }
-
-getConfig()
 
 module.exports = {
   getConfig
