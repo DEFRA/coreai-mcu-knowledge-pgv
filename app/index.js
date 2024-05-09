@@ -8,7 +8,7 @@ const init = async () => {
   if (process.env.INIT_CONTAINERS) {
     await initialiseContainers()
   }
-  
+
   const server = await createServer()
   await server.start()
   console.log('Server running on %s', server.info.uri)
