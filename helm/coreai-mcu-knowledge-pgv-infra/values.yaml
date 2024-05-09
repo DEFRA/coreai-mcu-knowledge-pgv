@@ -3,7 +3,7 @@ namespaceTopics:
     roleAssignments:
       - roleName: 'TopicReceiver'
     topicSubscriptions:
-      - name: coreai-mcu-knowledge-pgv
+      - name: knowledge-pgv
 postgres:
   db:
     name: knowledge
