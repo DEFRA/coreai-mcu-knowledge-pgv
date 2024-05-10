@@ -16,8 +16,7 @@ const schema = Joi.object({
     vectorColumnName: Joi.string().default('vector'),
     contentColumnName: Joi.string().default('content'),
     metadataColumnName: Joi.string().default('metadata')
-  }),
-  aadEndpoint: Joi.string().default('https://ossrdbms-aad.database.windows.net')
+  })
 })
 
 const config = {
@@ -42,9 +41,9 @@ const getConfig = async () => {
   const { error, value } = schema.validate(config)
 
   if (process.env.NODE_ENV === 'production') {
-    const credential = new DefaultAzureCredential({ managedIdentityClientId: process.env.AZURE_CLIENT_ID })
-    const { token } = await credential.getToken(value.aadEndpoint, { requestOptions: { timeout: 1000 } })
-    value.postgresConnectionOptions.password = token
+    const credential = new DefaultAzureCredential()
+    const { token } = await credential.getToken('https://ossrdbms-aad.database.windows.net', { requestOptions: { timeout: 1000 } })
+    config.postgresConnectionOptions.password = token
   }
 
   if (error) {
