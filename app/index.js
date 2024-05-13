@@ -5,7 +5,10 @@ const createServer = require('./server')
 const { initialiseContainers } = require('./storage/knowledge-document-repo')
 
 const init = async () => {
-  await initialiseContainers()
+  if (process.env.INIT_CONTAINERS) {
+    await initialiseContainers()
+  }
+
   const server = await createServer()
   await server.start()
   console.log('Server running on %s', server.info.uri)
