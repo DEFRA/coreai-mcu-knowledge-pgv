@@ -5,7 +5,7 @@ const { mapMetadataToBlob, mapMetadataToBase } = require('../mappers/knowledge-m
 
 const knowledgeContainer = blobServiceClient.getContainerClient(config.knowledgeContainer)
 
-const listKnowledge = async (search = '', category = '', orderBy = 'lastModified ', orderByDirection = 'Desc') => {
+const listKnowledge = async (search = '', category = '', orderBy = 'lastModified', orderByDirection = 'Desc') => {
   const blobs = []
 
   const listOptions = {
@@ -45,7 +45,7 @@ const listKnowledge = async (search = '', category = '', orderBy = 'lastModified
   return sortBlobs(blobs, orderBy, orderByDirection)
 }
 
-const sortBlobs = (blobs, orderBy = 'lastModified ', orderByDirection = 'Desc') => {
+const sortBlobs = (blobs, orderBy = 'lastModified', orderByDirection = 'Desc') => {
   return blobs.sort((a, b) => {
     const aValue = new Date(a.properties[orderBy])
     const bValue = new Date(b.properties[orderBy])
