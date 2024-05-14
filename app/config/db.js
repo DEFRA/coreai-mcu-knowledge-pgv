@@ -7,7 +7,7 @@ const schema = Joi.object({
     host: Joi.string().required(),
     port: Joi.number().required(),
     user: Joi.string().required(),
-    password: Joi.string().required(),
+    password: Joi.string().when('$NODE_ENV', { is: 'production', then: Joi.optional(), otherwise: Joi.required() }),
     database: Joi.string().required()
   }).required(),
   tableName: Joi.string().default('mcu_knowledge_vectors'),
@@ -16,8 +16,7 @@ const schema = Joi.object({
     vectorColumnName: Joi.string().default('vector'),
     contentColumnName: Joi.string().default('content'),
     metadataColumnName: Joi.string().default('metadata')
-  }),
-  aadEndpoint: Joi.string().default('https://ossrdbms-aad.database.windows.net')
+  })
 })
 
 const config = {
@@ -39,13 +38,13 @@ const config = {
 }
 
 const getConfig = async () => {
+  const { error, value } = schema.validate(config)
+
   if (process.env.NODE_ENV === 'production') {
     const credential = new DefaultAzureCredential()
-    const { token } = await credential.getToken(value.aadEndpoint, { requestOptions: { timeout: 1000 } })
+    const { token } = await credential.getToken('https://ossrdbms-aad.database.windows.net', { requestOptions: { timeout: 1000 } })
     config.postgresConnectionOptions.password = token
   }
-
-  const { error, value } = schema.validate(config)
 
   if (error) {
     throw new Error(`Postgres config validation error: ${error.message}`)
