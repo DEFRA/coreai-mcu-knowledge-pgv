@@ -23,7 +23,6 @@ const ingestWebpage = async (url, category, title) => {
   const id = await saveKnowledge(documentBuffer, 'text/plain')
 
   const metadata = {
-    id,
     fileName: url,
     category,
     title,
