@@ -11,12 +11,11 @@ const processIngestion = async (message, receiver) => {
       await ingestDocument(body.document_id)
 
       console.log(`Ingestion of document ${body.document_id} complete`)
-    } else if (body.type === 'webpage') {
+    }
+    if (body.type === 'webpage') {
       await ingestWebpage(body.url, body.category, body.title)
 
       console.log(`Ingestion of webpage at ${body.url} complete`)
-    } else {
-      throw new Error(`Unsupported ingestion type: ${body.type}`)
     }
 
     await receiver.completeMessage(message)
