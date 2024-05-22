@@ -17,7 +17,7 @@ const ingestDocument = async (id) => {
 
   await vectorStore.addDocuments(texts)
 
-  console.log(`Added documents to vector store`)
+  console.log('Added documents to vector store')
 }
 
 module.exports = {
