@@ -7,6 +7,7 @@ const load = async (document) => {
 
   const loader = new DocxLoader(blob)
 
+  console.log('loading docx')
   return loader.load()
 }
 
