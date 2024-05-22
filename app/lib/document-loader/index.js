@@ -40,6 +40,8 @@ const loadDocument = async (documentId, document) => {
     chunkOverlap: 200
   })
 
+  console.log('Splitting documents')
+
   return splitter.splitDocuments(docsWithMetadata)
 }
 

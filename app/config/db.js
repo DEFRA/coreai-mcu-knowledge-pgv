@@ -38,11 +38,12 @@ const config = {
 }
 
 const getConfig = async () => {
+  console.log('Getting Postgres config')
   const { error, value } = schema.validate(config)
 
   if (process.env.NODE_ENV === 'production') {
     console.log('Using managed identity for authentication')
-    const credential = new DefaultAzureCredential()
+    const credential = new DefaultAzureCredential({  })
     const { token } = await credential.getToken('https://ossrdbms-aad.database.windows.net', { requestOptions: { timeout: 1000 } })
     config.postgresConnectionOptions.password = token
     console.log('Got PG MI token')
