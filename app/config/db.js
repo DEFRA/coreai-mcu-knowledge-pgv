@@ -43,7 +43,7 @@ const getConfig = async () => {
 
   if (process.env.NODE_ENV === 'production') {
     console.log('Using managed identity for authentication')
-    const credential = new DefaultAzureCredential({ managedIdentityClientId: process.env.AZURE_CLIENT_ID })
+    const credential = new DefaultAzureCredential()
     const { token } = await credential.getToken('https://ossrdbms-aad.database.windows.net', { requestOptions: { timeout: 1000 } })
     config.postgresConnectionOptions.password = token
     console.log('Got PG MI token')
