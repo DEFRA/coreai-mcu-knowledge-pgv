@@ -1,9 +1,9 @@
 const { v4: uuidv4 } = require('uuid')
-const { blobServiceClient } = require('./get-blob-client')
+const { getBlobClient } = require('./get-blob-client')
 const config = require('../config/storage')
 const { mapMetadataToBlob, mapMetadataToBase } = require('../mappers/knowledge-metadata')
 
-const knowledgeContainer = blobServiceClient.getContainerClient(config.knowledgeContainer)
+const knowledgeContainer = getBlobClient().getContainerClient(config.knowledgeContainer)
 
 const listKnowledge = async (search = '', category = '', orderBy = 'lastModified ', orderByDirection = 'Desc') => {
   const blobs = []

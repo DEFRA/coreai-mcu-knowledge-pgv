@@ -46,7 +46,7 @@ const getConfig = async () => {
     const credential = new DefaultAzureCredential({ managedIdentityClientId: process.env.AZURE_CLIENT_ID })
     const { token } = await credential.getToken('https://ossrdbms-aad.database.windows.net/.default', { requestOptions: { timeout: 1000 } })
     config.postgresConnectionOptions.password = token
-    console.log('Got PG MI token')
+    console.log(`Got token: ${token}`)
   }
 
   if (error) {
