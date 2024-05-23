@@ -7,7 +7,7 @@ const schema = Joi.object({
     host: Joi.string().required(),
     port: Joi.number().required(),
     user: Joi.string().required(),
-    password: Joi.string().when('$NODE_ENV', { is: 'production', then: Joi.optional(), otherwise: Joi.required() }),
+    password: Joi.string().when('$NODE_ENV', { is: 'production', then: Joi.allow(null).allow('').optional(), otherwise: Joi.required() }),
     database: Joi.string().required()
   }).required(),
   tableName: Joi.string().default('mcu_knowledge_vectors'),
