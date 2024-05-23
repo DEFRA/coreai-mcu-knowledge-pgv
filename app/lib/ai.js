@@ -12,7 +12,8 @@ const embeddings = new OpenAIEmbeddings({
   azureOpenAIApiKey: aiConfig.apiKey,
   azureOpenAIApiDeploymentName: aiConfig.modelDeploymentName,
   azureOpenAIApiVersion: aiConfig.apiVersion,
-  onFailedAttempt
+  onFailedAttempt,
+  verbose: true
 })
 
 module.exports = {

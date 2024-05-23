@@ -12,7 +12,7 @@ const getVectorStore = async () => {
 
   console.log('Initializing new vector store')
 
-  vectorStore = await PGVectorStore.initialize(
+  vectorStore = new PGVectorStore(
     embeddings,
     await getConfig()
   )

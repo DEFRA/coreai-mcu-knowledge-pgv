@@ -53,8 +53,6 @@ const getConfig = async () => {
     throw new Error(`Postgres config validation error: ${error.message}`)
   }
 
-  console.log(value)
-
   return value
 }
 
