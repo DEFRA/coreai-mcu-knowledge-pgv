@@ -9,7 +9,7 @@ const schema = Joi.object({
     user: Joi.string().required(),
     password: Joi.string().required(),
     database: Joi.string().required(),
-    ssl: Joi.boolean().default(true)
+    ssl: Joi.boolean().required()
   }).required(),
   tableName: Joi.string().default('mcu_knowledge_vectors'),
   columns: Joi.object({
@@ -27,7 +27,8 @@ const config = {
     port: process.env.POSTGRES_PORT,
     user: process.env.POSTGRES_USERNAME,
     password: process.env.POSTGRES_PASSWORD,
-    database: process.env.POSTGRES_DB
+    database: process.env.POSTGRES_DB,
+    ssl: process.env.NODE_ENV === 'production'
   },
   tableName: 'mcu_knowledge_vectors',
   columns: {
