@@ -8,7 +8,8 @@ const schema = Joi.object({
     port: Joi.number().required(),
     user: Joi.string().required(),
     password: Joi.string().required(),
-    database: Joi.string().required()
+    database: Joi.string().required(),
+    ssl: Joi.boolean().default(true)
   }).required(),
   tableName: Joi.string().default('mcu_knowledge_vectors'),
   columns: Joi.object({
