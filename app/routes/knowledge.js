@@ -20,11 +20,7 @@ module.exports = [{
   },
   handler: async (request, h) => {
     const { search, category, orderBy, orderByDirection } = request.query
-    console.log('Getting knowledge')
-    console.log(request.query)
     const knowledge = await listKnowledge(search, category, orderBy, orderByDirection)
-
-    console.log(knowledge)
 
     return h.response(knowledge).code(200)
   }
