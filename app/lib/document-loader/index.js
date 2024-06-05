@@ -27,7 +27,7 @@ const loadDocument = async (documentId, document) => {
     docs = await loader(document)
   } catch (err) {
     console.error(`Error loading document ${documentId}:`, err)
-    
+
     throw err
   }
 
