@@ -40,8 +40,6 @@ const config = {
 }
 
 const getConfig = async () => {
-  console.log('Getting Postgres config')
-
   if (process.env.NODE_ENV === 'production') {
     console.log('Using managed identity for authentication')
     const credential = new DefaultAzureCredential({ managedIdentityClientId: process.env.AZURE_CLIENT_ID })
