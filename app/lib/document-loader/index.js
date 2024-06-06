@@ -21,7 +21,15 @@ const loadDocument = async (documentId, document) => {
     throw new Error(`Unsupported document type: ${document.contentType}`)
   }
 
-  const docs = await loader(document)
+  let docs
+
+  try {
+    docs = await loader(document)
+  } catch (err) {
+    console.error(`Error loading document ${documentId}:`, err)
+
+    throw err
+  }
 
   const docsWithMetadata = docs.map(doc => ({
     ...doc,

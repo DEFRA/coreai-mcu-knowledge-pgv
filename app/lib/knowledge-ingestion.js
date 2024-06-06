@@ -4,9 +4,11 @@ const { getVectorStore } = require('./vector-store')
 
 const ingestDocument = async (id) => {
   const document = await getKnowledge(id)
+
   const texts = await loadDocument(id, document)
 
   const vectorStore = await getVectorStore()
+
   await vectorStore.addDocuments(texts)
 }
 

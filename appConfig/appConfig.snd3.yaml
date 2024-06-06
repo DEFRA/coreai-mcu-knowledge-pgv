@@ -5,17 +5,17 @@
   value: "{{servicename}}-MESSAGE-QUEUE-HOST"
   type: "keyvault"
 - key: KNOWLEDGE_INGESTION_PGV_SUBSCRIPTION
-  value: "coreai-mcu-knowledge-pgv"
+  value: "crai-mcu-knowledge-pgv"
 - key: KNOWLEDGE_INGESTION_TOPIC
-  value: "coreai-mcu-knowledge-ingest"
+  value: "crai-mcu-knowledge-ingest"
 - key: POSTGRES_HOST
   value: "{{servicename}}-POSTGRES-HOST"
   type: "keyvault"
-- key: POSTGRES_USER
+- key: POSTGRES_USERNAME
   value: "{{servicename}}-POSTGRES-USERNAME"
   type: "keyvault"
 - key: POSTGRES_DB
-  value: "coreai-mcu-knowledge"
+  value: "crai-mcu-knowledge"
 - key: POSTGRES_PORT
   value: "5432"
 - key: AZURE_OPENAI_INSTANCE_NAME

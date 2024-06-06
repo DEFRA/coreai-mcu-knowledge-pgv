@@ -5,11 +5,7 @@ const { getConfig } = require('../config/db')
 let vectorStore
 
 const getVectorStore = async () => {
-  if (vectorStore) {
-    return vectorStore
-  }
-
-  vectorStore = await PGVectorStore.initialize(
+  vectorStore = new PGVectorStore(
     embeddings,
     await getConfig()
   )
