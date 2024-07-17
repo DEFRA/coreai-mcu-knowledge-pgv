@@ -2,7 +2,7 @@ const Joi = require('joi')
 
 const schema = Joi.object({
   instanceName: Joi.string().required(),
-  apiKey: Joi.string().required(),
+  apiKey: Joi.string().optional(),
   modelDeploymentName: Joi.string().required(),
   apiVersion: Joi.string().required()
 })

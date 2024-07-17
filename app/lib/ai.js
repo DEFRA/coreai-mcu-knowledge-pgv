@@ -1,4 +1,5 @@
-const { OpenAIEmbeddings } = require('@langchain/openai')
+const { ManagedIdentityCredential, getBearerTokenProvider } = require('@azure/identity')
+const { AzureOpenAIEmbeddings } = require('@langchain/openai')
 const aiConfig = require('../config/ai')
 
 const onFailedAttempt = async (error) => {
@@ -7,13 +8,39 @@ const onFailedAttempt = async (error) => {
   }
 }
 
-const embeddings = new OpenAIEmbeddings({
-  azureOpenAIApiInstanceName: aiConfig.instanceName,
-  azureOpenAIApiKey: aiConfig.apiKey,
-  azureOpenAIApiDeploymentName: aiConfig.modelDeploymentName,
-  azureOpenAIApiVersion: aiConfig.apiVersion,
-  onFailedAttempt,
-  verbose: true
+const tokenProvider = getBearerTokenProvider(
+  new ManagedIdentityCredential(process.env.AZURE_CLIENT_ID),
+  'https://cognitiveservices.azure.com/.default'
+)
+
+const getConfig = () => {
+  const config = {
+    azureOpenAIApiVersion: aiConfig.apiVersion,
+    azureOpenAIApiInstanceName: aiConfig.instanceName,
+    onFailedAttempt,
+    verbose: true
+  }
+
+  if (aiConfig.apiKey) {
+    console.log('Using Azure OpenAI API key')
+
+    return {
+      ...config,
+      azureOpenAIApiKey: aiConfig.apiKey
+    }
+  }
+
+  console.log('Using managed identity')
+
+  return {
+    ...config,
+    azureADTokenProvider: tokenProvider
+  }
+}
+
+const embeddings = new AzureOpenAIEmbeddings({
+  ...getConfig(),
+  azureOpenAIApiDeploymentName: aiConfig.modelDeploymentName
 })
 
 module.exports = {
