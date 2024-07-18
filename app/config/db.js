@@ -47,6 +47,12 @@ const config = {
   }
 }
 
+const { error, value } = schema.validate(config)
+
+if (error) {
+  throw new Error('Config validation error: ', error)
+}
+
 module.exports = {
-  config
+  config: value
 }
