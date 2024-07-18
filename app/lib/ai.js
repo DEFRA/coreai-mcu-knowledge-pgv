@@ -1,4 +1,4 @@
-const { ManagedIdentityCredential, getBearerTokenProvider } = require('@azure/identity')
+const { DefaultAzureCredential, getBearerTokenProvider } = require('@azure/identity')
 const { AzureOpenAIEmbeddings } = require('@langchain/openai')
 const aiConfig = require('../config/ai')
 
@@ -9,7 +9,7 @@ const onFailedAttempt = async (error) => {
 }
 
 const tokenProvider = getBearerTokenProvider(
-  new ManagedIdentityCredential(process.env.AZURE_CLIENT_ID),
+  new DefaultAzureCredential({ managedIdentityClientId: process.env.AZURE_CLIENT_ID }),
   'https://cognitiveservices.azure.com/.default'
 )
 

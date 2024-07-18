@@ -1,18 +1,14 @@
 const { PGVectorStore } = require('@langchain/community/vectorstores/pgvector')
 const { embeddings } = require('./ai')
-const { getConfig } = require('../config/db')
+const { config } = require('../config/db')
 
-let vectorStore
+const embeddings = getOpenAiEmbeddingsClient(openAi.embeddingsModelName)
 
-const getVectorStore = async () => {
-  vectorStore = new PGVectorStore(
-    embeddings,
-    await getConfig()
-  )
-
-  return vectorStore
-}
+const vectorStore = new PGVectorStore(
+  embeddings,
+  config
+)
 
 module.exports = {
-  getVectorStore
+  vectorStore
 }

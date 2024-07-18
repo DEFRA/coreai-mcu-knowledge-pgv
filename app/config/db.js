@@ -1,5 +1,10 @@
 const Joi = require('joi')
-const { DefaultAzureCredential } = require('@azure/identity')
+const { DefaultAzureCredential, getBearerTokenProvider } = require('@azure/identity')
+
+const tokenProvider = getBearerTokenProvider(
+  new DefaultAzureCredential({ managedIdentityClientId: process.env.AZURE_CLIENT_ID }),
+  'https://ossrdbms-aad.database.windows.net'
+)
 
 const schema = Joi.object({
   postgresConnectionOptions: Joi.object({
@@ -7,7 +12,10 @@ const schema = Joi.object({
     host: Joi.string().required(),
     port: Joi.number().required(),
     user: Joi.string().required(),
-    password: Joi.string().required(),
+    password: Joi.alternatives().try(
+      Joi.string(),
+      Joi.func()
+    ).required(),
     database: Joi.string().required(),
     ssl: Joi.boolean().required()
   }).required(),
@@ -26,7 +34,7 @@ const config = {
     host: process.env.POSTGRES_HOST,
     port: process.env.POSTGRES_PORT,
     user: process.env.POSTGRES_USERNAME,
-    password: process.env.POSTGRES_PASSWORD,
+    password: process.env.NODE_ENV === 'production' ? tokenProvider : process.env.POSTGRES_PASSWORD,
     database: process.env.POSTGRES_DB,
     ssl: process.env.NODE_ENV === 'production'
   },
@@ -39,23 +47,6 @@ const config = {
   }
 }
 
-const getConfig = async () => {
-  if (process.env.NODE_ENV === 'production') {
-    console.log('Using managed identity for authentication')
-    const credential = new DefaultAzureCredential({ managedIdentityClientId: process.env.AZURE_CLIENT_ID })
-    const { token } = await credential.getToken('https://ossrdbms-aad.database.windows.net/.default', { requestOptions: { timeout: 1000 } })
-    config.postgresConnectionOptions.password = token
-  }
-
-  const { error, value } = schema.validate(config)
-
-  if (error) {
-    throw new Error(`Postgres config validation error: ${error.message}`)
-  }
-
-  return value
-}
-
 module.exports = {
-  getConfig
+  config
 }
