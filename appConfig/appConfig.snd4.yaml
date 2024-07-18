@@ -21,9 +21,6 @@
 - key: AZURE_OPENAI_INSTANCE_NAME
   value: "{{servicename}}-AZURE-OPENAI-INSTANCE-NAME"
   type: "keyvault"
-- key: AZURE_OPENAI_KEY
-  value: "{{servicename}}-AZURE-OPENAI-KEY"
-  type: "keyvault"
 - key: AZURE_OPENAI_API_VERSION
   value: "2024-02-01"
 - key: EMBEDDING_MODEL_NAME
