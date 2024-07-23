@@ -12,7 +12,10 @@ const schema = Joi.object({
     host: Joi.string().required(),
     port: Joi.number().required(),
     user: Joi.string().required(),
-    password: Joi.any(),
+    password: Joi.alternatives().try(
+      Joi.string(),
+      Joi.func()
+    ).required(),
     database: Joi.string().required(),
     ssl: Joi.boolean().required()
   }).required(),
@@ -31,7 +34,7 @@ const config = {
     host: process.env.POSTGRES_HOST,
     port: process.env.POSTGRES_PORT,
     user: process.env.POSTGRES_USERNAME,
-    password: process.env.NODE_ENV === 'production' ? tokenProvider : process.env.POSTGRES_PASSWORD,
+    password: process.env.NODE_ENV === 'production' ? () => tokenProvider() : process.env.POSTGRES_PASSWORD,
     database: process.env.POSTGRES_DB,
     ssl: process.env.NODE_ENV === 'production'
   },
@@ -44,10 +47,10 @@ const config = {
   }
 }
 
-const { error, value } = schema.validate(config)
+const { error, value } = schema.validate(config,  { abortEarly: false })
 
 if (error) {
-  throw new Error('DB Config Invalid: ', error)
+  throw new Error('DB Config Invalid: ', error.message)
 }
 
 module.exports = {
