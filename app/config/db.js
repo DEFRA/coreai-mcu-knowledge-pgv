@@ -12,10 +12,7 @@ const schema = Joi.object({
     host: Joi.string().required(),
     port: Joi.number().required(),
     user: Joi.string().required(),
-    password: Joi.alternatives().try(
-      Joi.string(),
-      Joi.func()
-    ).required(),
+    password: Joi.any(),
     database: Joi.string().required(),
     ssl: Joi.boolean().required()
   }).required(),
@@ -50,7 +47,7 @@ const config = {
 const { error, value } = schema.validate(config)
 
 if (error) {
-  throw new Error('Config validation error: ', error)
+  throw new Error('DB Config Invalid: ', error)
 }
 
 module.exports = {
