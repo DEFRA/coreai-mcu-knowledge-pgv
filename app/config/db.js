@@ -47,7 +47,7 @@ const config = {
   }
 }
 
-const { error, value } = schema.validate(config,  { abortEarly: false })
+const { error, value } = schema.validate(config, { abortEarly: false })
 
 if (error) {
   throw new Error('DB Config Invalid: ', error.message)
