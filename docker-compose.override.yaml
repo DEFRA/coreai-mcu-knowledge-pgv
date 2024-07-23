@@ -39,6 +39,7 @@ services:
 
   coreai-mcu-knowledge-azurite:
     image: mcr.microsoft.com/azure-storage/azurite
+    command: azurite --blobHost --blobPort 10000 --tableHost --tablePort 10002 --skipApiVersionCheck
     ports:
       - "${CORE_AI_KNOWLEDGE_BLOB_PORT:-10000}:10000"
     volumes:
