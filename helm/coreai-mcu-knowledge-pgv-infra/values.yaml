@@ -13,7 +13,7 @@ postgres:
 storageAccounts:
   - name: 'coreaimcu'
     owner: 'no'
+    roleAssignments:
+      - roleName: 'DataWriter'
     blobContainers:
       - name: 'knowledge'
-        roleAssignments:
-          - roleName: 'BlobDataContributor'
