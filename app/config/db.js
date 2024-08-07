@@ -2,7 +2,7 @@ const Joi = require('joi')
 const { DefaultAzureCredential, getBearerTokenProvider } = require('@azure/identity')
 
 const tokenProvider = getBearerTokenProvider(
-  new DefaultAzureCredential({ managedIdentityClientId: process.env.TEAM_CLIENT_ID }),
+  new DefaultAzureCredential({ workloadIdentityClientId: process.env.TEAM_CLIENT_ID }),
   'https://ossrdbms-aad.database.windows.net/.default'
 )
 
