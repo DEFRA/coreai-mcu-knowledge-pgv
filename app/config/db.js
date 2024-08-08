@@ -6,7 +6,7 @@ const tokenProvider = async () => {
     workloadIdentityClientId: process.env.TEAM_CLIENT_ID
   })
 
-  const accessToken = await credential.getToken('https://ossrdbms-aad.database.windows.net')
+  const accessToken = await credential.getToken('https://ossrdbms-aad.database.windows.net/.default')
 
   return accessToken.token
 }
