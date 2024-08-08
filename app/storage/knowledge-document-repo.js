@@ -24,6 +24,8 @@ const listKnowledge = async (search = '', category = '', orderBy = 'lastModified
   for await (const blob of knowledgeContainer.listBlobsFlat(listOptions)) {
     blob.metadata = mapMetadataToBase(blob.metadata)
 
+    console.log(blob.metadata)
+
     blobs.push(blob)
   }
 
@@ -63,8 +65,6 @@ const getKnowledge = async (id) => {
 
   const metadata = mapMetadataToBase(properties.metadata)
   const contentType = properties.contentType
-
-  console.log(metadata)
 
   return {
     buffer,
