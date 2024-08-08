@@ -1,13 +1,10 @@
 const Joi = require('joi')
-const { DefaultAzureCredential } = require('@azure/identity')
+const { DefaultAzureCredential, getBearerTokenProvider } = require('@azure/identity')
 
-const tokenProvider = async () => {
-  const credential = new DefaultAzureCredential({ managedIdentityClientId: process.env.AZURE_CLIENT_ID })
-
-  const accessToken = await credential.getToken('https://ossrdbms-aad.database.windows.net/.default')
-
-  return accessToken.token
-}
+const tokenProvider = getBearerTokenProvider(
+  new DefaultAzureCredential({ managedIdentityClientId: process.env.AZURE_CLIENT_ID }),
+  'https://ossrdbms-aad.database.windows.net'
+)
 
 const schema = Joi.object({
   postgresConnectionOptions: Joi.object({
