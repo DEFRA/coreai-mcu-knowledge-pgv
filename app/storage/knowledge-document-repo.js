@@ -64,6 +64,8 @@ const getKnowledge = async (id) => {
   const metadata = mapMetadataToBase(properties.metadata)
   const contentType = properties.contentType
 
+  console.log(metadata)
+
   return {
     buffer,
     metadata,
