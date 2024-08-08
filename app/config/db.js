@@ -1,11 +1,10 @@
 const Joi = require('joi')
-const { ChainedTokenCredential, AzureCliCredential, WorkloadIdentityCredential } = require('@azure/identity')
+const { DefaultAzureCredential } = require('@azure/identity')
 
 const tokenProvider = async () => {
-  const credential = new ChainedTokenCredential(
-    new AzureCliCredential(),
-    new WorkloadIdentityCredential()
-  )
+  const credential = new DefaultAzureCredential({
+    workloadIdentityClientId: process.env.TEAM_CLIENT_ID
+  })
 
   const accessToken = await credential.getToken('https://ossrdbms-aad.database.windows.net/.default')
 
