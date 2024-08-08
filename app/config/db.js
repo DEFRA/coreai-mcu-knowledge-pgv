@@ -3,7 +3,7 @@ const { DefaultAzureCredential, getBearerTokenProvider } = require('@azure/ident
 
 const tokenProvider = getBearerTokenProvider(
   new DefaultAzureCredential({ managedIdentityClientId: process.env.AZURE_CLIENT_ID }),
-  'https://ossrdbms-aad.database.windows.net'
+  'https://ossrdbms-aad.database.windows.net/.default'
 )
 
 const schema = Joi.object({
