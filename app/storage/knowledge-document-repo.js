@@ -13,7 +13,7 @@ const listKnowledge = async (search = '', category = '', orderBy = 'lastModified
     includeDeleted: false,
     includeDeletedWithVersions: false,
     includeLegalHold: false,
-    includeMetadata: false,
+    includeMetadata: true,
     includeSnapshots: true,
     includeTags: true,
     includeUncommitedBlobs: false,
