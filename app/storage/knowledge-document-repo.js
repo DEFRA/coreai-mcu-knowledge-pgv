@@ -13,7 +13,7 @@ const listKnowledge = async (search = '', category = '', orderBy = 'lastModified
     includeDeleted: false,
     includeDeletedWithVersions: false,
     includeLegalHold: false,
-    includeMetadata: false,
+    includeMetadata: true,
     includeSnapshots: true,
     includeTags: true,
     includeUncommitedBlobs: false,
@@ -23,6 +23,8 @@ const listKnowledge = async (search = '', category = '', orderBy = 'lastModified
 
   for await (const blob of knowledgeContainer.listBlobsFlat(listOptions)) {
     blob.metadata = mapMetadataToBase(blob.metadata)
+
+    console.log(blob.metadata)
 
     blobs.push(blob)
   }
